@@ -12,11 +12,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = cache()->remember('posts',60*60, function ()
-        {
-            return Post::with(['author:id,name','category:id,name'])->get();
-        });
-
+        $posts = Post::with(['author:id,name','category:id,name'])->get();
         return view('posts.index',compact('posts'));
     }
 
