@@ -12,7 +12,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['author','category'])->get();
+        $posts = Post::all();
+        $posts->load(['author','category']);
         return view('posts.index',compact('posts'));
     }
 
