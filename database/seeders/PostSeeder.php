@@ -13,6 +13,12 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::factory(50)->create();
+        // $posts = Post::factory(5000)->create(); 27 seconds
+
+        // 4.5 seconds
+        $posts = Post::factory(5000)->make();
+        $posts->chunk(500)->each(function ($chunk){
+           Post::insert($chunk->toArray());
+        });
     }
 }
